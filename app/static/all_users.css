@@ -1,0 +1,198 @@
+/* Add Friends Page Styles */
+.add-friends-container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1.5rem;
+}
+
+.friends-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.page-title {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+
+.page-subtitle {
+    color: #7f8c8d;
+    font-size: 1.1rem;
+}
+
+/* Search Card */
+.search-card {
+    background: white;
+    border-radius: 15px;
+    padding: 2rem;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    margin-bottom: 2rem;
+}
+
+.search-container {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.search-input-group {
+    flex: 1;
+    position: relative;
+}
+
+.search-icon {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #bdc3c7;
+}
+
+.search-input {
+    width: 100%;
+    padding: 1rem 1rem 1rem 3rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: var(--secondary-color);
+}
+
+.search-button {
+    background: var(--secondary-color);
+    color: white;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    transition: transform 0.2s ease;
+}
+
+.search-button:hover {
+    transform: translateY(-2px);
+}
+
+/* Users Grid */
+.users-section {
+    background: white;
+    border-radius: 15px;
+    padding: 2rem;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+.section-title {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: var(--primary-color);
+    margin-bottom: 2rem;
+}
+
+.badge {
+    background: var(--secondary-color);
+    color: white;
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+}
+
+.users-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.user-card {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    background: #f8f9fa;
+    border-radius: 10px;
+    transition: transform 0.2s ease;
+}
+
+.user-card:hover {
+    transform: translateY(-3px);
+}
+
+.user-avatar i {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+}
+
+.user-info {
+    flex: 1;
+}
+
+.username {
+    margin: 0;
+    font-size: 1.1rem;
+    color: var(--dark-color);
+}
+
+.user-status {
+    margin: 0.3rem 0 0;
+    font-size: 0.9rem;
+    color: #7f8c8d;
+}
+
+.add-button {
+    background: var(--success-color);
+    color: white;
+    padding: 0.8rem 1.2rem;
+    border-radius: 8px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: 0.3s ease;
+}
+
+.add-button:hover {
+    background: #219653;
+    color: white;
+}
+
+/* Empty State */
+.empty-state {
+    text-align: center;
+    padding: 4rem 2rem;
+    grid-column: 1 / -1;
+}
+
+.empty-illustration {
+    max-width: 250px;
+    margin-bottom: 1.5rem;
+    opacity: 0.8;
+}
+
+.empty-state p {
+    color: #7f8c8d;
+    font-size: 1.1rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .search-container {
+        flex-direction: column;
+    }
+
+    .search-button {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .user-card {
+        flex-direction: column;
+        text-align: center;
+    }
+}
