@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% comment %} {% extends 'base.html' %}
+
+{% load static %}
+{% block title %}Chat App - Group Creation{% endblock %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'create_group.css' %}">
+{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+        <h1>Welcome to Chat App</h1>
+        <p>Create a group or join to a group by entering a group name below:</p>
+        <form method="POST">
+            {% csrf_token %}
+            <label for="group-name">Group Name:</label>
+            <input type="text" id="group-name" name="group_name" placeholder="Enter group name" required>
+            <input type="text" name="gp_discription" placeholder="Enter group discription">
+            <button type="submit">Join Group</button>
+        </form>
+    </div>
+{% endblock %} {% endcomment %}
+
+
+{% load static %}
+{% block title %}Chat App - Group Creation{% endblock %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'create_group.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container-wrapper">
+    <div class="group-creation-container">
+        <div class="header-section">
+            <h1 class="main-title">Create New Group</h1>
+            <p class="subtitle">Start your conversation by creating a new group space</p>
+        </div>
+
+        <form method="POST" class="group-creation-form">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="group-name" class="form-label">Group Name</label>
+                <input type="text" id="group-name" name="group_name" 
+                       class="form-input" placeholder="Enter unique group name" 
+                       required>
+            </div>
+
+            <div class="form-group">
+                <label for="group-description" class="form-label">Description</label>
+                <textarea id="group-description" name="gp_discription" 
+                          class="form-textarea" 
+                          placeholder="Describe the purpose of this group (optional)"
+                          rows="3"></textarea>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="create-button">
+                    <span class="button-text">Create Group</span>
+                    <i class="button-icon fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </form>
+        
+        <div class="additional-info">
+            <p class="info-text">
+                <i class="fas fa-info-circle"></i>
+                Groups names must be unique. Use descriptive names for better recognition.
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}

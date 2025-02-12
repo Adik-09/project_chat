@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Group Information</title>
+
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Chat Group: <span id="group-name">{{gp_name}}</span></h1>
+            <p class="description" id="group-description">{{grp_discription}}</p>
+        </header>
+    </div>
+
+    <div>
+        <h3>Members</h3>
+        <ul>
+            {% for mem in gp_details %}
+                {% if mem.admin == True %}
+                    <li>{{mem.member}} is Admin</li>
+                {% else %}
+                    <li>{{mem.member}} is Member</li>
+                {% endif %}
+            {% endfor %}  
+        </ul>
+    </div>
+    
+</body>
+</html>
