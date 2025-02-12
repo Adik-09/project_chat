@@ -1,0 +1,127 @@
+{% extends 'base.html' %}
+
+{% comment %} {% extends 'base.html' %}
+
+{% load static %}
+{% block title %}Add User to Group{% endblock %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'add_user.css' %}">
+{% endblock %}
+
+{% block content %}
+
+        <h2>Select your friends to add them in Group: {{ grp_name }}</h2>
+
+        {% if friend %}
+        <div class="group-list">
+            {% for mem in friend %}
+                <a class="group-item" href="/ak/home/create_group/{{ grp_name }}/{{ mem }}/">{{ mem }}</a>
+            {% endfor %}
+        </div>
+        {% else %}
+        <p style="text-align: center; color: #666;">No friends available.</p>
+        {% endif %}
+    </div>
+{% endblock %} {% endcomment %}
+
+
+{% load static %}
+{% block title %}Add User to Group{% endblock %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'add_user.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="add-members-container">
+    <div class="group-header">
+        <a href="/ak/home/chat/{{ grp_name }}/" class="back-button">
+            <i class="fas fa-arrow-left"></i>
+            Back to Group
+        </a>
+        <h1 class="page-title">
+            <i class="fas fa-user-plus"></i>
+            Add Members to<span class="group-name">{{ grp_name }}</span>
+        </h1>
+        <p class="page-subtitle">Select friends to add to this group</p>
+    </div>
+
+    <div class="members-section">
+        {% if friend %}
+        <div class="members-grid">
+            {% for mem in friend %}
+            <div class="member-card">
+                <div class="member-avatar">
+                    <i class="fas fa-user-circle"></i>
+                </div>
+                <div class="member-info">
+                    <h3 class="username">{{ mem }}</h3>
+                </div>
+                <a href="/ak/home/create_group/add_mem/{{ grp_name }}/{{ mem }}/" 
+                   class="add-button"
+                   title="Add to group">
+                    <i class="fas fa-plus-circle"></i>
+                    Add
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="empty-state">
+            <p class="empty-message">No friends available to add.</p>
+            <a href="/ak/home/add_friends/" class="cta-button">
+                <i class="fas fa-user-plus"></i>
+                Find Friends
+            </a>
+        </div>
+        {% endif %}
+    </div>
+    
+</div>
+
+<div class="add-members-container">
+    <div class="group-header">
+        <h1 class="page-title">
+            <i class="fas fa-user-minus"></i>
+            Delete Members From<span class="group-name">{{ grp_name }}</span>
+        </h1>
+    </div>
+
+    <div class="members-section">
+        {% if friend %}
+        <div class="members-grid">
+            {% for mem in gp_member %}
+            {% if mem.member != user %}
+            <div class="member-card">
+                <div class="member-avatar">
+                    <i class="fas fa-user-circle"></i>
+                </div>
+                
+                <div class="member-info">
+                    <h3 class="username">{{ mem.member }}</h3>
+                </div>
+                
+                <a href="/ak/home/create_group/delete_mem/{{ grp_name }}/{{ mem.member }}/" 
+                   class="add-button"
+                   title="Add to group">
+                    <i class="fas fa-minus-circle"></i>
+                    Delete
+                </a>
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="empty-state">
+            <p class="empty-message">No friends available to add.</p>
+            <a href="/ak/home/add_friends/" class="cta-button">
+                <i class="fas fa-user-plus"></i>
+                Find Friends
+            </a>
+        </div>
+        {% endif %}
+    </div>
+    
+</div>
+{% endblock %}
