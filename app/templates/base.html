@@ -1,0 +1,93 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}AK Chat App{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'base.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
+    {% block extra_head %}{% endblock %}
+</head>
+<body>
+    <!-- Alert -->
+    <div class="alert-container">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert {% if message.tags %} alert-{{ message.tags }} {% endif %}">
+                    <span class="alert-icon">
+                        {% if message.tags == 'success' %}<i class="fas fa-check-circle"></i>
+                        {% elif message.tags == 'error' %}<i class="fas fa-exclamation-circle"></i>
+                        {% else %}<i class="fas fa-info-circle"></i>{% endif %}
+                    </span>
+                    {{ message }}
+                    <span class="alert-close" onclick="this.parentElement.style.display='none'">&times;</span>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+
+    <!-- Navigation -->
+    <header>
+        <nav>
+            <div class="nav-container">
+                <div class="logo">
+                    <span>AK Chatapp</span>
+                </div>
+                <div class="user-status">
+                    <i class="fas fa-user-circle"></i>
+                    <span><a href="/ak/home/" class="user-status-name">{{ user }}</a></span>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="/ak/home/chats/"><i class="fas fa-comments"></i> Friends</a></li>
+                    <li><a href="/ak/home/add_friends/"><i class="fas fa-user-plus"></i> Add Friends</a></li>
+                    <li><a href="/ak/home/create_group/"><i class="fas fa-users"></i> Create Group</a></li>
+                    <li><a href="/ak/home/friend_request/"><i class="fas fa-bell"></i> Requests</a></li>
+                    <li><a href="#"><i class="fas fa-info-circle"></i> About</a></li>
+                    <li><a href="/ak/logout/" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                </ul>
+                <div class="menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Page Content -->
+    <main class="content-wrapper">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="footer-content">
+            <div class="social-links">
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+            </div>
+            <p>&copy; 2024 AK Chatapp. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Auto-hide alert after 5 seconds
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                const alerts = document.querySelectorAll('.alert');
+                alerts.forEach(alert => {
+                    alert.style.opacity = '0';
+                    setTimeout(() => alert.remove(), 300);
+                });
+            }, 2000);
+        });
+
+        // Mobile menu toggle
+        document.querySelector('.menu-toggle').addEventListener('click', () => {
+            document.querySelector('.nav-links').classList.toggle('active');
+        });
+    </script>
+    {% block extra_scripts %}{% endblock %}
+</body>
+</html>

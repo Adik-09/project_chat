@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+
+{% comment %} {% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Friends{% endblock %}
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'chat_user.css' %}">
+{% endblock %}
+
+{% block content %}
+   
+    <div class="container">
+        <h2>Your Friends</h2>
+        <div class="group-list">
+            {% if friends %}
+                {% for fr in friends %}
+                    <a href="/ak/home/chat/{{ request.user.username }}/{{ fr }}/" class="group-item">{{ fr }}</a>
+                {% endfor %}
+            {% else %}
+                <p>No friends available.</p>
+            {% endif %}
+        </div>
+
+        <h2>Your Groups</h2>
+        <div class="group-list">
+            {% if groups %}
+                {% for gp in groups %}
+                    <a href="/ak/home/chat/{{ gp.group }}/" class="group-item">{{ gp.group }}</a>
+                {% endfor %}
+            {% else %}
+                <p>No groups available.</p>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
+ {% endcomment %}
+
+{% load static %}
+
+{% block title %}Friends & Groups{% endblock %}
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'chat_user.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="friends-container">
+    <!-- Friends Section -->    
+    <section class="friends-section">
+        <div class="section-header">
+            <h2><i class="fas fa-user-friends"></i> Your Friends</h2>
+            <a href="/ak/home/add_friends/" class="add-button">
+                <i class="fas fa-user-plus"></i> Add Friends
+            </a>
+        </div>
+        
+        <div class="friends-grid">
+            {% if friends %}
+                {% for fr in friends %}
+                <a href="/ak/home/chat/{{ request.user.username }}/{{ fr }}/" class="friend-card">
+                    <div class="friend-avatar">
+                        <i class="fas fa-user-circle"></i>
+                    </div>
+                    <div class="friend-info">
+                        <h3>{{ fr }}</h3>
+                    </div>
+                    <i class="fas fa-comment-dots message-icon"></i>
+                </a>
+                {% endfor %}
+            {% else %}
+                <div class="empty-state">
+                    <p>You don't have any friends yet. Start adding some!</p>
+                </div>
+            {% endif %}
+        </div>
+    </section>
+
+    <!-- Groups Section -->
+    <section class="groups-section">
+        <div class="section-header">
+            <h2><i class="fas fa-users"></i> Your Groups</h2>
+            <a href="/ak/home/create_group/" class="add-button">
+                <i class="fas fa-plus-circle"></i> New Group
+            </a>
+        </div>
+        
+        <div class="groups-grid">
+            {% if groups %}
+                {% for gp in groups %}
+                <a href="/ak/home/chat/{{ gp.group }}/" class="group-card">
+                    <div class="group-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="group-info">
+                        <h3>{{ gp.group }}</h3>
+                        <p class="members">Group Admin : {{ gp.admin }}</p>
+                        <p class="members">Total Members : {{ gp.member_count }}</p>
+                    </div>
+                    <i class="fas fa-chevron-right arrow-icon"></i>
+                </a>
+                {% endfor %}
+            {% else %}
+                <div class="empty-state">
+                    <p>No groups yet. Create one to start chatting!</p>
+                </div>
+            {% endif %}
+        </div>
+    </section>
+</div>
+{% endblock %}
