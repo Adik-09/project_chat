@@ -34,7 +34,6 @@ DEBUG = True
 ALLOWED_HOSTS = [
     '127.0.0.1', 
     'localhost', 
-    '192.168.161.108',
 ]
 
 # CSRF_TRUSTED_ORIGINS = ['add the ngrok url']
