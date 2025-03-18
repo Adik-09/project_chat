@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Add Friends{% endblock %}
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'all_users.css' %}">
+{% endblock %}  
+
+{% block content %}
+<div class="add-friends-container">
+    <div class="friends-header">
+        <h1 class="page-title">Connect with Friends</h1>
+        <p class="page-subtitle">Discover and connect with other users</p>
+    </div>
+
+    <div class="search-card">
+        <form method="post">
+            {% csrf_token %}
+        <div class="search-container">
+            <div class="search-input-group">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" id="userSearch" name="userSearch" class="search-input" placeholder="Search by username...">
+            </div>
+            <button class="search-button">
+                <i class="fas fa-search"></i>
+                <span>Search</span>
+            </button>
+        </div>
+    </form>
+    </div>
+    <br>
+    <div class="users-grid" id="userList">
+        {% if searched_user %}
+            <div class="user-card">
+                <div class="user-avatar">
+                    <i class="fas fa-user-circle"></i>
+                </div>
+                <div class="user-info">
+                    <h3 class="username">{{ searched_user }}</h3>
+                </div>
+                <a href="/ak/home/add_friend/{{ request.user.username }}/{{ searched_user }}/" 
+                   class="add-button">
+                    <i class="fas fa-user-plus"></i>
+                    Add Friend
+                </a>
+            </div>
+            {% endif %}
+    </div>
+
+    <div class="users-section">
+        <h2 class="section-title">
+            <i class="fas fa-users"></i>
+            Suggested Connections
+        </h2>
+
+        <div class="users-grid" id="userList">
+            {% for user in users %}
+                {% if user != request.user %}
+                <div class="user-card">
+                    <div class="user-avatar">
+                        <i class="fas fa-user-circle"></i>
+                    </div>
+                    <div class="user-info">
+                        <h3 class="username">{{ user }}</h3>
+                    </div>
+                    <a href="/ak/home/add_friend/{{ request.user.username }}/{{ user.username }}/" 
+                       class="add-button">
+                        <i class="fas fa-user-plus"></i>
+                        Add Friend
+                    </a>
+                </div>
+                {% endif %}
+            {% empty %}
+                <div class="empty-state">
+                    <p>No users found. Try adjusting your search!</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

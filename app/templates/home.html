@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Home{% endblock %}
+
+{% block extra_head %}
+<link href="{% static 'home.css' %}" rel='stylesheet'>
+{% endblock %}
+
+{% block content %}
+<div class="dashboard">
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Welcome to AK Chatapp, {{ user }}!</h1>
+            <p>Connect with friends, join communities, and share moments in real-time</p>
+            <a href="/ak/home/add_friends/" class="cta-button">Find New Friends →</a>
+        </div>
+    </section>
+
+    <!-- Quick Actions -->
+    <div class="quick-actions">
+        <div class="action-card">
+            <i class="fas fa-comment-medical"></i>
+            <h3>Start New Chat</h3>
+            <p>Begin a conversation with friends</p>
+        </div>
+        <div class="action-card">
+            <i class="fas fa-user-friends"></i>
+            <h3>Manage Friends</h3>
+            <p>View and organize your connections</p>
+        </div>
+        <div class="action-card">
+            <i class="fas fa-cog"></i>
+            <h3>Settings</h3>
+            <p>Customize your experience</p>
+        </div>
+    </div>
+
+    <!-- Recent Activity -->
+    <section class="activity-section">
+        <h2>Recent Activity</h2>
+        <div class="activity-grid">
+            <div class="activity-card">
+                <div class="activity-header">
+                    <i class="fas fa-comments"></i>
+                    <h4>New Messages</h4>
+                    <span class="badge">3 unread</span>
+                </div>
+                <ul class="activity-list">
+                    <li>Message from John</li>
+                    <li>Group chat update</li>
+                    <li>New friend request</li>
+                </ul>
+            </div>
+            
+            <div class="activity-card">
+                <div class="activity-header">
+                    <i class="fas fa-bell"></i>
+                    <h4>Notifications</h4>
+                    <span class="badge">2 new</span>
+                </div>
+                <ul class="activity-list">
+                    <li>System update available</li>
+                    <li>New feature announcement</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}
+

@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}ChatZone - {{grpname}}{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<link rel="stylesheet" href="{% static 'main_chat.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="chat-app">
+    <header class="chat-header">
+        <a href="/ak/home/group_details/{{grpname}}/">
+            <h1>{{grpname}}</h1>
+        </a>
+        {% if group != 'single' %}
+        <a href="/ak/home/create_group/{{grpname}}/">
+            <i class="fas fa-users"></i> Members
+        </a>
+        <a href="/ak/home/delete_group/{{grpname}}/">
+            <i class="fas fa-trash"></i> Delete
+        </a>
+        {% endif %}
+    </header>
+
+    <div class="chat-window">
+        {% for chats in chats %}
+        <div class="message {% if chats.author == user %}sent{% else %}received{% endif %}">
+            <span class="user">
+                {% if chats.author == user %}You{% else %}{{ chats.author }}{% endif %}
+            </span>
+            <p>{{ chats.message }}</p>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="chat-input-area">
+        <input type="text" id="chat-message" placeholder="Type your message..." autocomplete="off">
+        <label for="fileInput" class="file-input-label">
+            <i class="fas fa-paperclip"></i>
+        </label>
+        <input type="file" id="fileInput" hidden>
+        <button id="chat-submit" onclick="sendMessage()">
+            <i class="fas fa-paper-plane"></i>
+        </button>
+    </div>
+</div>
+
+{{ grpname|json_script:"group-name" }}
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+    const grpname = JSON.parse(document.getElementById('group-name').textContent);
+    const ws = new WebSocket('ws://' + window.location.host + '/ws/' + grpname + '/');
+
+    function sendMessage() {
+        const messageInput = document.getElementById('chat-message');
+        const message = messageInput.value.trim();
+        
+        if(message) {
+            ws.send(JSON.stringify({
+                'msg': message,
+                'author': '{{ user.username }}'
+            }));
+            messageInput.value = '';
+        }
+    }
+
+    ws.onmessage = function(event) {
+        const data = JSON.parse(event.data);
+        const chatWindow = document.querySelector('.chat-window');
+        
+        const messageDiv = document.createElement('div');
+        messageDiv.classList.add('message', data.author === '{{ user.username }}' ? 'sent' : 'received');
+        
+        messageDiv.innerHTML = `
+            <span class="user">${data.author === '{{ user.username }}' ? 'You' : data.author}</span>
+            <p>${data.msg}</p>
+        `;
+
+        chatWindow.appendChild(messageDiv);
+        chatWindow.scrollTop = chatWindow.scrollHeight;
+    };
+
+    document.getElementById('chat-message').addEventListener('keypress', function(e) {
+        if(e.key === 'Enter') sendMessage();
+    });
+</script>
+{% endblock %}

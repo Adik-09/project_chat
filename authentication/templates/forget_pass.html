@@ -1,0 +1,106 @@
+{% comment %} {% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Forget Password</title>
+  <link rel="stylesheet" href="{% static 'forget_pass.css' %}">
+  <link rel="icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
+</head>
+<body>
+  <div class="container">
+    <div class="form-box">
+      <h2>Reset Password</h2>
+      <form  method="POST">
+        {% csrf_token %}
+        <div class="input-group">
+          <label for="username">Username</label>
+          <input type="text" id="username" name="username" placeholder="Enter your username" required>
+        </div>
+        <div class="input-group">
+          <label for="new-password">New Password</label>
+          <input type="password" id="new-password" name="new-password" placeholder="Enter your new password" required>
+        </div>
+        <button type="submit" class="btn">Submit</button>
+      </form>
+    </div>
+  </div>
+  <script></script>
+</body>
+</html> {% endcomment %}
+
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reset Password</title>
+  <link rel="stylesheet" href="{% static 'forget_pass.css' %}">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap">
+  <link rel="icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
+</head>
+<body>
+
+  <div class="alert-container">
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert {% if message.tags %} alert-{{ message.tags }} {% endif %}">
+                <i class="alert-icon fas 
+                    {% if message.tags == 'error' %}fa-exclamation-circle
+                    {% elif message.tags == 'success' %}fa-check-circle
+                    {% else %}fa-info-circle{% endif %}"></i>
+                <span>{{ message }}</span>
+            </div>
+        {% endfor %}
+    {% endif %}
+</div>
+
+  <div class="container">
+    <div class="form-box">
+      <div class="form-header">
+        <img src="{% static 'ak_logo.png' %}" class="logo" alt="App Logo">
+        <h1>Reset Your Password</h1>
+        <p>Enter your username and new password below</p>
+      </div>
+      
+      <form method="POST">
+        {% csrf_token %}
+        <div class="input-group">
+          <input type="text" id="username" name="username" required>
+          <label for="username">Username</label>
+          <span class="underline"></span>
+        </div>
+
+        <div class="input-group">
+          <input type="text" id="email" name="email" required>
+          <label for="Email">Email</label>
+          <span class="underline"></span>
+        </div>
+        
+        <button type="submit" class="btn">
+          <span>SEND OTP</span>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+            <path fill="currentColor" d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"/>
+          </svg>
+        </button>
+      </form>
+    </div>
+  </div>
+</body>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    setTimeout(() => {
+        const alerts = document.querySelectorAll('.alert');
+        alerts.forEach(alert => {
+            alert.style.opacity = '0';
+            setTimeout(() => alert.remove(), 300);
+        });
+    }, 2000);
+});
+</script>
+</html>

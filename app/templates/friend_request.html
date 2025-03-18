@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block title %}Friend Requests{% endblock %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'friend_request.css' %}">
+{% endblock %}
+
+{% block content %}
+  
+    <div class="container">
+        <h1>Friend Requests</h1>
+        {% if fr_req %}
+            {% for fr in fr_req %}
+                <ul class="friend-requests-list">
+                    <li class="friend-request-item">
+                        <div class="request-info">
+                            <p><strong>{{ fr.sender }}</strong>Sent you a friend request.</p>
+                        </div>
+                        <div class="request-actions">
+                            <form method="post" action="/ak/home/accept_reject/{{ fr.sender }}/accept/">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-success">Accept</button>
+                            </form>
+                            <form method="post" action="/ak/home/accept_reject/{{ fr.sender }}/reject/">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger">Reject</button>
+                            </form>
+                        </div>
+                    </li>
+                </ul>
+            {% endfor %}
+        {% else %}
+            <p>No Friend requests available.</p>
+        {% endif %}
+    </div>
+{% endblock %}
